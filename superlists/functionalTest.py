@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -22,20 +23,32 @@ class NewVisitorTest(unittest.TestCase):
 
         # 她注意到首頁的標題提到了待辦事項清單
         # assert '待辦事項' in browser.title
-        import time
-        time.sleep(3)
         self.assertIn('待辦事項', self.browser.title)
-        self.fail('Finish the test！')
-
+        headerText = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('待辦事項清單', headerText)
         
         # 網站邀請她輸入一個待辦事項
+        inputBox = self.browser.find_element_by_id('newItem')
+        self.assertEqual(
+            inputBox.get_attribute('placeholder'),
+            '輸入一個待辦事項'
+        )
         
         # 她在文字框裡輸入了「買孔雀羽毛」(她的嗜好是做路亞假餌Fly-fishing lure)
+        inputBox.send_keys('買孔雀羽毛')
         
         # 當她按下「送出」按鈕，頁面資訊更新，待辦事項清單裡多了一個項目：「買孔雀羽毛」
+        inputBox.send_keys(Keys.ENTER)
+        
+        table = self.browser.find_element_by_id('listTable')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text=='買孔雀羽毛' for row in rows)
+        )
         
         # 頁面另外還有一個文字框，邀請她再加入其他項目，她輸入了「利用孔雀羽毛來做一個路亞」
         # (彤彤做事很講究章法的)
+        self.fail('Finish the test！')
         
         # 頁面再次更新，現在待辦事項清單裡有兩個項目了
         
