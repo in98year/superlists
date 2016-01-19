@@ -42,11 +42,11 @@ class NewVisitorTest(unittest.TestCase):
         
         
         # 她在文字框裡輸入了「買孔雀羽毛」(她的嗜好是做路亞假餌Fly-fishing lure)
+        
         inputBox.send_keys('買孔雀羽毛')
         
         # 當她按下「送出」按鈕，頁面資訊更新，待辦事項清單裡多了一個項目：「買孔雀羽毛」
         inputBox.send_keys(Keys.ENTER)
-        time.sleep(3)
         self.check_for_row_in_listTable('買孔雀羽毛')
         
         # 頁面另外還有一個文字框，邀請她再加入其他項目，她輸入了「利用孔雀羽毛來做一個路亞」
@@ -56,11 +56,14 @@ class NewVisitorTest(unittest.TestCase):
         inputBox.send_keys(Keys.ENTER)
         
         # 頁面再次更新，現在待辦事項清單裡有兩個項目了
+        
         self.check_for_row_in_listTable('買孔雀羽毛')
         self.check_for_row_in_listTable('利用孔雀羽毛來做一個路亞')
+  
         
         # 彤彤懷疑這個網站是否會記住她，她看到網站有為她產生專屬的URL，URL裡
         # 有一些說明文字
+        time.sleep(3)
         self.fail('Finish the test！')
         # 她前往該URL，待辦清單依舊存在
         
