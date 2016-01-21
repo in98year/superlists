@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from lists.models import Item
+from lists.models import Item, List
 
 
 # Create your views here.
@@ -15,5 +15,6 @@ def viewList(request):
 
 
 def newList(request):
-    Item.objects.create(text=request.POST.get('itemText'))
+    list_ = List.objects.create()
+    Item.objects.create(text=request.POST.get('itemText'), list=list_)
     return redirect(reverse('lists:viewList'))
