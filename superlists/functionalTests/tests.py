@@ -5,6 +5,7 @@ import time
 
 class NewVisitorTest(LiveServerTestCase):
 
+
     def setUp(self):
         profile = webdriver.FirefoxProfile()
         profile.set_preference('browser.startup.homepage', 'about:blank')
@@ -13,8 +14,10 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser = webdriver.Firefox(profile)
         self.browser.implicitly_wait(3) 
         
+        
     def tearDown(self):
         self.browser.quit()
+        
         
     def check_for_row_in_listTable(self, rowText):
         table = self.browser.find_element_by_id('listTable')
